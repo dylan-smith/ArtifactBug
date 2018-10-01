@@ -1,0 +1,16 @@
+resources:
+- repo: self
+queue:
+  name: Hosted VS2017
+steps:
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from $(Build.SourcesDirectory)\coverage.cobertura.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)\coverage.cobertura.xml'
+    failIfCoverageEmpty: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)'
